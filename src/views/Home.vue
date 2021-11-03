@@ -2,8 +2,8 @@
   <div class="home">
     <h1>Videos</h1>
     <div class="video-container">
-      <div v-for="video in videos" :key="video.id">
-        <router-link :to="{ name: 'video-watch', params: { id: video.id } }">
+      <div v-for="(video, index) in videos" :key="index">
+        <router-link :to="{ name: 'video-watch', params: { id: video.name } }">
           <div class="video-box">
             <img :src="video.thumbnail" />
             <div>
@@ -19,13 +19,26 @@
 
 <script>
 // @ is an alias to /src
+import Api from "@/service/api";
 
 export default {
   name: "Home",
   components: {},
+  mounted() {
+    this.loadVideos()
+  },
+  
+  methods:{
+    async loadVideos(){
+      const response = await Api().get("videos");
+      this.videos = response.data.data.map(v => v.attributes);
+    }
+
+  },
   data() {
     return {
-      videos: this.$store.state.videos,
+      videos: [],
+      //videos: this.$store.state.videos,
     };
   },
 };
