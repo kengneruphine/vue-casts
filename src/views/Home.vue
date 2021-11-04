@@ -19,27 +19,17 @@
 
 <script>
 // @ is an alias to /src
-import Api from "@/service/api";
 
 export default {
   name: "Home",
   components: {},
   mounted() {
-    this.loadVideos()
+    this.$store.dispatch("loadVideos"); //using dispatch to call our action
   },
-  
-  methods:{
-    async loadVideos(){
-      const response = await Api().get("videos");
-      this.videos = response.data.data.map(v => v.attributes);
-    }
-
-  },
-  data() {
-    return {
-      videos: [],
-      //videos: this.$store.state.videos,
-    };
+  computed: {
+    videos() {
+      return this.$store.state.videos;
+    },
   },
 };
 </script>

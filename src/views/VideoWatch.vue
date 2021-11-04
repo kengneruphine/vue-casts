@@ -8,10 +8,13 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.dispatch("loadVideos"); //using dispatch to call our action
+  },
   computed: {
     video() {
       return this.$store.state.videos.find(
-        (vid) => vid.id == this.$route.params.id
+        (vid) => vid.name == this.$route.params.id || {}
       );
     },
   },
