@@ -22,8 +22,10 @@ export default createStore({
       let videos = response.data.data;
       let tags = response.data.included.filter((i) => i.type === "tags");
 
+      //adding videos ids to the tag
       tags.forEach((t) => {
         t.attributes.id = t.id;
+        t.attributes.video_ids = t.relationships.videos.data.map((v) => v.id);
       });
 
       videos.forEach((v) => {

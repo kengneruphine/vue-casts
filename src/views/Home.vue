@@ -3,18 +3,7 @@
     <h1>Videos</h1>
     <div class="video-container">
       <div v-for="(video, index) in videos" :key="index">
-        <router-link :to="{ name: 'video-watch', params: { id: video.name } }">
-          <div class="video-box">
-            <img :src="video.thumbnail" />
-            <div>
-              <h3>{{ video.name }}</h3>
-              <div v-html="video.description"></div>
-              <span v-for="(tag_id, index) in video.tag_ids" :key="index">
-                <button class="tag-button">{{ getTag(tag_id).name }}</button>
-              </span>
-            </div>
-          </div>
-        </router-link>
+        <VideoListVideo :video="video"></VideoListVideo>
       </div>
     </div>
   </div>
@@ -22,14 +11,14 @@
 
 <script>
 // @ is an alias to /src
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
+import VideoListVideo from "../components/VideoListVideo.vue";
 export default {
   name: "Home",
-  components: {},
+  components: { VideoListVideo },
   methods: {},
   computed: {
     ...mapState(["videos", "tags"]),
-    ...mapGetters(["getTag"]),
     // videos() {
     //   return this.$store.state.videos;
     // },
@@ -42,18 +31,6 @@ export default {
 
 <style scoped lang="scss">
 .video-container {
-  .video-box {
-    border: 1px solid black;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 10px;
-    text-align: left;
-    display: flex;
-    justify-content: flex-start;
-    img {
-      width: 200px;
-      padding: 10px;
-    }
-  }
+  
 }
 </style>

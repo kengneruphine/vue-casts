@@ -2,7 +2,9 @@
   <div>
     <img :src="video.thumbnail" />
     <span v-for="(tag_id, index) in video.tag_ids" :key="index">
-      <button class="tag-button">{{ getTag(tag_id).name }}</button>
+      <router-link :to="{ name: 'tag', params: { id: tag_id } }">
+        <button class="tag-button">{{ getTag(tag_id).name }}</button>
+      </router-link>
     </span>
     <h1>{{ video.name }}</h1>
     <div v-html="video.description"></div>
