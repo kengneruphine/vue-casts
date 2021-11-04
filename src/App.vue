@@ -35,4 +35,13 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+button.tag-button {
+  background-color: #72C9A2;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
 </style>

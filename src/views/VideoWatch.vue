@@ -1,22 +1,24 @@
 <template>
   <div>
     <img :src="video.thumbnail" />
+    <span v-for="(tag_id, index) in video.tag_ids" :key="index">
+      <button class="tag-button">{{ getTag(tag_id).name }}</button>
+    </span>
     <h1>{{ video.name }}</h1>
     <div v-html="video.description"></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  mounted() {
-    this.$store.dispatch("loadVideos"); //using dispatch to call our action
-  },
   computed: {
     video() {
       return this.$store.state.videos.find(
         (vid) => vid.name == this.$route.params.id || {}
       );
     },
+    ...mapGetters(["getTag"]),
   },
 };
 </script>
@@ -24,5 +26,6 @@ export default {
 <style scoped>
 img {
   max-width: 50%;
+  height: 600px;
 }
 </style>

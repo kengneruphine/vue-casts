@@ -9,6 +9,9 @@
             <div>
               <h3>{{ video.name }}</h3>
               <div v-html="video.description"></div>
+              <span v-for="(tag_id, index) in video.tag_ids" :key="index">
+                <button class="tag-button">{{ getTag(tag_id).name }}</button>
+              </span>
             </div>
           </div>
         </router-link>
@@ -19,17 +22,20 @@
 
 <script>
 // @ is an alias to /src
-
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "Home",
   components: {},
-  mounted() {
-    this.$store.dispatch("loadVideos"); //using dispatch to call our action
-  },
+  methods: {},
   computed: {
-    videos() {
-      return this.$store.state.videos;
-    },
+    ...mapState(["videos", "tags"]),
+    ...mapGetters(["getTag"]),
+    // videos() {
+    //   return this.$store.state.videos;
+    // },
+    // tags() {
+    //   return this.$store.state.tags;
+    // },
   },
 };
 </script>
